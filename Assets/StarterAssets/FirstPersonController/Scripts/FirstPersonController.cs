@@ -34,6 +34,7 @@ namespace StarterAssets
 		public float JumpHeight = 1.2f;
 		[Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
 		public float Gravity = -15.0f;
+		private float cachedGravity;
 
 		[Space(10)]
 		[Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
@@ -83,9 +84,14 @@ namespace StarterAssets
 		private const float _threshold = 0.01f;
 
 		// Jeff ladder variables
-		private float lerpTimer;
-		private float timeToLerp = 0.2f;
-		private Vector3 ladderOffset = new Vector3(0, 3, 0);
+		private float timeToLerp;
+		private float timeToLerpLadder = 0.2f;
+		private float timeBetweenGrab = 0.5f;
+		private float distancePerRung = 1f;
+		private int numberOfRungs = 3;
+		private float timeToLerpRung = 0.5f;
+		private float timeToLerpBullet = 0.2f;
+		private float distanceToHideBullet = 1f;
 
 		private bool IsCurrentDeviceMouse
 		{
@@ -290,22 +296,49 @@ namespace StarterAssets
 		{
 			GetComponent<PlayerInput>().ActivateInput();
 		}
+		private void DisableGravity()
+		{
+			cachedGravity = Gravity;
+			Gravity = 0;
+			_verticalVelocity = 0;
+		}
+		private void EnableGravity()
+		{
+			Gravity = cachedGravity;
+			_verticalVelocity = -2f;
+		}
 
 		// Jeff ladder functions
 		public void StartClimbLabber(Transform startPoint)
 		{
-			DisableInput();
 			StartCoroutine(ClimbLadder(startPoint));
-			EnableInput();
 		}
 
 		// Jeff ladder coroutines
-		private IEnumerator ClimbLadder(Transform startPoint)
+		private IEnumerator ClimbLadder(Transform toPoint)
 		{
-			lerpTimer = 0f;
-			yield return LerpToPoint(startPoint);
+			DisableInput();
+			DisableGravity();
+
+			// lerp to starting point quickly
+			timeToLerp = timeToLerpLadder;
+			yield return LerpToPointNoY(toPoint);
+			// slowly climb ladder. hardcoded values
+			timeToLerp = timeToLerpRung;
+			for (int i = 1; i <= numberOfRungs; ++i)
+			{
+				yield return new WaitForSeconds(timeBetweenGrab);
+				toPoint.position = new Vector3(toPoint.position.x, toPoint.position.y + distancePerRung, toPoint.position.z);
+				yield return LerpToPoint(toPoint);
+			}
+			// wait and have bullet whizz by
+			timeToLerp = timeToLerpBullet;
+			yield return BulletNearEar(toPoint);
+
+			EnableGravity();
+			EnableInput();
 		}
-		private IEnumerator LerpToPoint(Transform toPoint)
+		private IEnumerator LerpToPointNoY(Transform toPoint)
 		{
 			float elapsedTime = 0f;
 			Vector3 startPos = transform.position;
@@ -319,6 +352,34 @@ namespace StarterAssets
 				yield return null;
 			}
 			transform.position = toPoint.position;
+			yield return null;
+		}
+		private IEnumerator LerpToPoint(Transform toPoint)
+		{
+			float elapsedTime = 0f;
+			Vector3 startPos = transform.position;
+			Quaternion startRot = transform.rotation;
+			while (elapsedTime < timeToLerp)
+			{
+				transform.position = Vector3.Lerp(startPos, toPoint.position, elapsedTime / timeToLerp);
+				transform.rotation = Quaternion.Slerp(startRot, Quaternion.Euler(startRot.x, toPoint.rotation.y, startRot.z), elapsedTime / timeToLerp);
+				elapsedTime += Time.deltaTime;
+
+				yield return null;
+			}
+			transform.position = toPoint.position;
+			yield return null;
+		}
+		private IEnumerator BulletNearEar(Transform toPoint)
+		{
+			yield return new WaitForSeconds(1f);
+			toPoint.position = new Vector3(toPoint.position.x, toPoint.position.y - distanceToHideBullet, toPoint.position.z);
+			yield return LerpToPoint(toPoint);
+			yield return new WaitForSeconds(1f);
+			toPoint.position = new Vector3(toPoint.position.x, toPoint.position.y + distanceToHideBullet, toPoint.position.z);
+			yield return LerpToPoint(toPoint);
+			yield return new WaitForSeconds(0.5f);
+
 			yield return null;
 		}
 	}
