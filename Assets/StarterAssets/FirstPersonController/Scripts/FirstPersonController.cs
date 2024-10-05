@@ -11,6 +11,10 @@ namespace StarterAssets
 #endif
 	public class FirstPersonController : MonoBehaviour
 	{
+		// singleton
+		public static FirstPersonController Instance;
+
+
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
 		public float MoveSpeed = 4.0f;
@@ -88,6 +92,9 @@ namespace StarterAssets
 
 		private void Awake()
 		{
+			// singleton
+			if (Instance == null) { Instance = this; }
+			else { Debug.LogError("Multiple instances of FirstPersonController"); Destroy(this); }
 			// get a reference to our main camera
 			if (_mainCamera == null)
 			{
