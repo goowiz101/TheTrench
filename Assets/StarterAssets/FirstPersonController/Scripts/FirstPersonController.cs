@@ -1,4 +1,8 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -77,6 +81,11 @@ namespace StarterAssets
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
+
+		// Jeff ladder variables
+		private float lerpTimer;
+		private float timeToLerp = 0.2f;
+		private Vector3 ladderOffset = new Vector3(0, 3, 0);
 
 		private bool IsCurrentDeviceMouse
 		{
@@ -270,6 +279,47 @@ namespace StarterAssets
 
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+		}
+
+		// Helper functions
+		private void DisableInput()
+		{
+			GetComponent<PlayerInput>().DeactivateInput();
+		}
+		private void EnableInput()
+		{
+			GetComponent<PlayerInput>().ActivateInput();
+		}
+
+		// Jeff ladder functions
+		public void StartClimbLabber(Transform startPoint)
+		{
+			DisableInput();
+			StartCoroutine(ClimbLadder(startPoint));
+			EnableInput();
+		}
+
+		// Jeff ladder coroutines
+		private IEnumerator ClimbLadder(Transform startPoint)
+		{
+			lerpTimer = 0f;
+			yield return LerpToPoint(startPoint);
+		}
+		private IEnumerator LerpToPoint(Transform toPoint)
+		{
+			float elapsedTime = 0f;
+			Vector3 startPos = transform.position;
+			Quaternion startRot = transform.rotation;
+			while (elapsedTime < timeToLerp)
+			{
+				transform.position = Vector3.Lerp(startPos, new Vector3(toPoint.position.x, startPos.y, toPoint.position.z), elapsedTime / timeToLerp);
+				transform.rotation = Quaternion.Slerp(startRot, Quaternion.Euler(startRot.x, toPoint.rotation.y, startRot.z), elapsedTime / timeToLerp);
+				elapsedTime += Time.deltaTime;
+
+				yield return null;
+			}
+			transform.position = toPoint.position;
+			yield return null;
 		}
 	}
 }
