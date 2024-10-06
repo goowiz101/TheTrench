@@ -6,6 +6,8 @@ using UnityEngine;
 public class Key : MonoBehaviour
 {
     private Transform originalTransform;
+
+    private Vector3 goalPosition;
     private bool isPickedUp = false;
 
     private void Start()
@@ -17,13 +19,15 @@ public class Key : MonoBehaviour
     {
         if (isPickedUp)
         {
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, Vector3.zero, 60f * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, goalPosition, 60f * Time.deltaTime);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(0f,0f,0f), 20f * Time.deltaTime);
         }
     }
 
     public void PickUpKey()
     {
-        // TODO: attach to bone of hand?
+        goalPosition = new Vector3(0, 0, 3f);
+        FirstPersonController.Instance.GiveKey(this);
         transform.SetParent(FirstPersonController.Instance.handTransform);
         isPickedUp = true;
     }

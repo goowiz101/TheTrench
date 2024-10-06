@@ -89,7 +89,10 @@ namespace StarterAssets
 		public Transform headTransform;
 
 		// Jeff grenade
+		private Grenade grenade;
 		private bool hasGrenade = false;
+		private Key key;
+		private bool hasKey = false;
 
 		// Jeff ladder variables
 		private float timeToLerp;
@@ -343,13 +346,25 @@ namespace StarterAssets
 		{
 			return CinemachineCameraTarget.transform.up;
 		}
-		public void GiveGrenade()
+		public void GiveGrenade(Grenade grenade)
 		{
+			this.grenade = grenade;
 			hasGrenade = true;
 		}
 		public void RemoveGrenade()
 		{
+			Destroy(grenade);
 			hasGrenade = false;
+		}
+		public void GiveKey(Key key)
+		{
+			this.key = key;
+			hasKey = true;
+		}
+		public void RemoveKey()
+		{
+			Destroy(key);
+			hasKey = false;
 		}
 
 		// Jeff ladder functions

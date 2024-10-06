@@ -45,7 +45,7 @@ public class Grenade : MonoBehaviour
     {
         goalPosition = new Vector3(0, 0, 0.2f);
         transform.SetParent(FirstPersonController.Instance.handTransform);
-        FirstPersonController.Instance.GiveGrenade();
+        FirstPersonController.Instance.GiveGrenade(this);
         isPickedUp = true;
         canFire = true;
         GetComponent<Interaction>().isInteractable = false;
