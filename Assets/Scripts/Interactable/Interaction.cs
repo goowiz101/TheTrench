@@ -6,9 +6,21 @@ using UnityEngine.Events;
 public class Interaction : MonoBehaviour
 {
     public UnityEvent OnInteract;
+    private bool isInteractable = true;
     public void Interact()
     {
-        Debug.Log("Interacted with: " + name);
-        OnInteract?.Invoke();
+        if (isInteractable)
+        {
+            Debug.Log("Interacted with: " + name);
+            OnInteract?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Tried to interact with disabled: " + name);
+        }
+    }
+    public void DisableInteraction()
+    {
+        isInteractable = false;
     }
 }
