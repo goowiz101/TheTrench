@@ -27,10 +27,12 @@ public class Interactor : MonoBehaviour
         if (_input.interact) 
         {
             Ray r = new Ray(InteractorSource.position, InteractorSource.forward);
+            Debug.Log("Shoot ray");
             // If it hits something, call interact
             //Debug.DrawRay(InteractorSource.position, InteractorSource.forward * InteractRange, Color.white, 5f);
             if (Physics.Raycast(r, out RaycastHit hitInfo, InteractRange, ~LayerMask.NameToLayer("Interactable")))
             {
+                Debug.Log("ray hit: " + hitInfo.collider.gameObject.layer);
                 if (hitInfo.transform == null) { return; }
                 if (!hitInfo.transform.TryGetComponent<Interaction>(out Interaction interactObj)) { return; }
                 interactObj.Interact();

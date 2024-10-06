@@ -85,6 +85,7 @@ namespace StarterAssets
 
 		// Jeff pickup
 		public Transform handTransform;
+		public Transform faceTransform;
 
 		// Jeff ladder variables
 		private float timeToLerp;
