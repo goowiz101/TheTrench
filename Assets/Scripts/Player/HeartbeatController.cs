@@ -55,7 +55,7 @@ public class HeartbeatController : MonoBehaviour
                     clip = heartbeatNormal;
                     break;
             }
-            //Debug.Log("beat");
+            Debug.Log("beat");
             audioSource.pitch = Random.Range(1-maxPitchVariation, 1+maxPitchVariation);
             audioSource.PlayOneShot(clip);
             timer = 0f;
