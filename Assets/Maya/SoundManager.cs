@@ -14,8 +14,8 @@ public enum SoundType
     RADIO,
     UNLOCK,
     WAR,
-    LOCK
-
+    LOCK,
+    GLASS
 }
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour

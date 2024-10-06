@@ -1376,6 +1376,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3463964167017803099, guid: 763616e8674ce0e45b7fe6c7f5ca1a90,
+        type: 3}
+      propertyPath: soundList.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463964167017803099, guid: 763616e8674ce0e45b7fe6c7f5ca1a90,
+        type: 3}
+      propertyPath: soundList.Array.data[11]
+      value: 
+      objectReference: {fileID: 8300000, guid: cacf4d0f22670a34b976b165b3f65c50, type: 3}
     - target: {fileID: 7600079972582024825, guid: 763616e8674ce0e45b7fe6c7f5ca1a90,
         type: 3}
       propertyPath: m_Name
