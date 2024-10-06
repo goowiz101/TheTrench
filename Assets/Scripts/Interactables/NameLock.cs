@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using StarterAssets;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class NameLock : MonoBehaviour
 {
@@ -24,6 +26,8 @@ public class NameLock : MonoBehaviour
     Quaternion originalRotation;
     Vector3 goalPosition;
     Quaternion goalRotation;
+
+    public UnityEvent OnUnlocked;
 
     private void Start()
     {
@@ -62,12 +66,16 @@ public class NameLock : MonoBehaviour
         //goalRotation = Quaternion.FromToRotation(transform.forward, -FirstPersonController.Instance.GetCameraForward());
         goalRotation = Quaternion.LookRotation(-FirstPersonController.Instance.GetCameraForward(), FirstPersonController.Instance.GetCameraUp()) * transform.rotation;
         isPickedUp = true;
+        AssociatedUI.SetActive(true);
     }
     public void DeactivateLock()
     {
         FirstPersonController.Instance.EnableInput();
         FirstPersonController.Instance.DisableCursor();
         //StartCoroutine(LerpFromPlayer());
+        goalPosition = originalPosition;
+        goalRotation = originalRotation;
+        AssociatedUI.SetActive(false);
     }
     public void IncreaseNumber(int number)
     {
@@ -75,7 +83,7 @@ public class NameLock : MonoBehaviour
         clickTimer = 0f;
 
         numbers[number] = (numbers[number] + 1) % 9;
-        Debug.Log("Numbers are: " + numbers[0] + numbers[1] + numbers[2] + numbers[3] + numbers[4] + numbers[5]); 
+        //Debug.Log("Numbers are: " + numbers[0] + numbers[1] + numbers[2] + numbers[3] + numbers[4] + numbers[5]); 
         StartCoroutine(LerpWheelUp(Wheels[number]));
     }
     public void DecreaseNumber(int number)
@@ -83,6 +91,22 @@ public class NameLock : MonoBehaviour
         if (clickTimer < clickCooldown) { return; }
         clickTimer = 0f;
 
+        numbers[number] = (numbers[number] - 1 + 9) % 9;
+        //Debug.Log("Numbers are: " + numbers[0] + numbers[1] + numbers[2] + numbers[3] + numbers[4] + numbers[5]); 
+        StartCoroutine(LerpWheelDown(Wheels[number]));
+    }
+    public void CheckIfCorrect()
+    {
+        if (numbers[0] != 2) { return; }
+        if (numbers[1] != 4) { return; }
+        if (numbers[2] != 1) { return; }
+        if (numbers[3] != 8) { return; }
+        if (numbers[4] != 2) { return; }
+        if (numbers[5] != 0) { return; }
+
+        OnUnlocked?.Invoke();
+        DeactivateLock();
+        this.gameObject.SetActive(false);
     }
 
     // coroutines
@@ -128,10 +152,17 @@ public class NameLock : MonoBehaviour
         }
         yield return null;
     }
-
-
-
-
-
+        public IEnumerator LerpWheelDown(GameObject wheel)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < twistTime)
+        {
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime > twistTime) { elapsedTime = twistTime; }
+            wheel.transform.Rotate(40 * (Time.deltaTime / twistTime), 0, 0);
+            yield return null;
+        }
+        yield return null;
+    }
 
 }
