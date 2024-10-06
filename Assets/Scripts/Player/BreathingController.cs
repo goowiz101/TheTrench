@@ -25,7 +25,7 @@ public class BreathingController : MonoBehaviour
 
     void Update()
     {
-        if (!tired && FirstPersonController.Instance._speed > 3.9f)
+        if (!tired && FirstPersonController.Instance._speed > FirstPersonController.Instance.MoveSpeed-1)
         {
             running = true;
             StartLoop();

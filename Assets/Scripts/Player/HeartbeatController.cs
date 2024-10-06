@@ -29,7 +29,7 @@ public class HeartbeatController : MonoBehaviour
 
     void Start()
     {
-        timer = 3f;
+        timer = 0f;
         heartRate = HeartRate.Normal;
     }
 

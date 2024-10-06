@@ -6,7 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class BGMManager : MonoBehaviour
 {
-    [SerializeField] private AudioClip[] soundList;
     private static BGMManager instance;
     [SerializeField] private AudioSource ambientSource;
     [SerializeField] private AudioSource monsterSource;
