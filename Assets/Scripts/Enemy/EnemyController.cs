@@ -42,8 +42,11 @@ public class EnemyController : MonoBehaviour
     }
     public void Despawn()
     {
-        Disappear();
+        //Disappear();
+        SoundManager.PlaySound(SoundType.RADIO);
+        StartCoroutine(ChasePlayer());
     }
+
 
 
     // Helper functions
@@ -66,5 +69,21 @@ public class EnemyController : MonoBehaviour
 
         //basePPVol.weight = (1f - percentage);
         monsterPPVol.weight = (percentage);
+    }
+
+    IEnumerator ChasePlayer()
+    {
+        // TODO: play audio
+        float totalTime = 1f;
+        float elapsedTime = 0f;
+        Vector3 dir = FirstPersonController.Instance.transform.position - this.transform.position;
+        dir = Vector3.Normalize(dir);
+        while (elapsedTime < totalTime)
+        {
+            this.transform.position += dir * 40 * Time.deltaTime;
+            yield return null;
+        }
+        Disappear();
+        yield return null;
     }
 }

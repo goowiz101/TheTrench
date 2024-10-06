@@ -30,7 +30,7 @@ public class BreathingController : MonoBehaviour
             running = true;
             StartLoop();
         }
-        else
+        else if (tired && FirstPersonController.Instance._speed < 1f)
         {
             running = false;
             StopLoop();
@@ -66,6 +66,7 @@ public class BreathingController : MonoBehaviour
 
     void StartLoop()
     {
+        Debug.Log("start breathe");
         audioSource.loop = true;
         audioSource.Play();
     }
