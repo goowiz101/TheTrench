@@ -22,6 +22,7 @@ public class FlareGun : MonoBehaviour
     {
         if (isPickedUp)
         {
+            // TODO: timer, not hardcoded time duh
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, Vector3.zero, 60f * Time.deltaTime);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(0f,0f,90f), 20f * Time.deltaTime);
 

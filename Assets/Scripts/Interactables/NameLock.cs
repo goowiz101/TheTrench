@@ -19,6 +19,7 @@ public class NameLock : MonoBehaviour
     private float clickTimer = 0f;
 
     bool isPickedUp = false;
+   // float lerpTimer = 0;
     Vector3 originalPosition;
     Quaternion originalRotation;
     Vector3 goalPosition;
@@ -41,11 +42,13 @@ public class NameLock : MonoBehaviour
 
         if (isPickedUp)
         {
+            //lerpTimer += Time.deltaTime;
             transform.position = Vector3.Lerp(transform.position, goalPosition, 5f * Time.deltaTime);
-            transform.rotation = Quaternion.Slerp(originalRotation, goalRotation, 5f * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, goalRotation, 5f * Time.deltaTime);
         }
         else
         {
+           // lerpTimer = 0;
             transform.position = Vector3.MoveTowards(transform.position, originalPosition, 60f * Time.deltaTime);
         }
     }
@@ -56,9 +59,8 @@ public class NameLock : MonoBehaviour
         FirstPersonController.Instance.EnableCursor();
         //StartCoroutine(LerpToPlayer());
         goalPosition = FirstPersonController.Instance.faceTransform.TransformPoint(0,0,0);
-        goalRotation = Quaternion.Euler(FirstPersonController.Instance.transform.rotation.x,
-                                            FirstPersonController.Instance.GetCameraPitch(),
-                                            FirstPersonController.Instance.transform.rotation.z);
+        //goalRotation = Quaternion.FromToRotation(transform.forward, -FirstPersonController.Instance.GetCameraForward());
+        goalRotation = Quaternion.LookRotation(-FirstPersonController.Instance.GetCameraForward(), FirstPersonController.Instance.GetCameraUp()) * transform.rotation;
         isPickedUp = true;
     }
     public void DeactivateLock()

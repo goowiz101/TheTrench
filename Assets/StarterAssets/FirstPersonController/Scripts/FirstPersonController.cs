@@ -331,6 +331,14 @@ namespace StarterAssets
 		{
 			return _cinemachineTargetPitch;
 		}
+		public Vector3 GetCameraForward()
+		{
+			return CinemachineCameraTarget.transform.forward;
+		}
+		public Vector3 GetCameraUp()
+		{
+			return CinemachineCameraTarget.transform.up;
+		}
 
 		// Jeff ladder functions
 		public void StartClimbLabber(Transform startPoint)

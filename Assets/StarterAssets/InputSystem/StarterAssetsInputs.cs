@@ -21,6 +21,8 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
+		private bool doOnce = false;
+
 #if ENABLE_INPUT_SYSTEM
 		public void OnMove(InputValue value)
 		{
@@ -79,7 +81,7 @@ namespace StarterAssets
 
 		private void OnApplicationFocus(bool hasFocus)
 		{
-			SetCursorState(cursorLocked);
+			if (!doOnce) { SetCursorState(cursorLocked); doOnce = true; }
 		}
 
 		public void SetCursorState(bool newState)
