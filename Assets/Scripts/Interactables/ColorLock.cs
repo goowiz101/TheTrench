@@ -1,15 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using StarterAssets;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class NameLock : MonoBehaviour
+public class ColorLock : MonoBehaviour
 {
-    //private float timeToLerp = 0.25f;
-    //private Vector3 offsetFromPlayer = new Vector3(0f, 1.5f, 0f);
-    //private float inFrontOfPlayer = 1f;
 
     private Transform originalTransform;
 
@@ -38,7 +34,7 @@ public class NameLock : MonoBehaviour
         //originalTransform = transform;
         originalPosition = transform.position;
         originalRotation = transform.rotation;
-        numbers = new List<int>{0, 0, 0, 0, 0, 0};
+        numbers = new List<int>{0, 0, 0};
     }
 
     private void Update()
@@ -50,13 +46,11 @@ public class NameLock : MonoBehaviour
 
         if (isPickedUp)
         {
-            //lerpTimer += Time.deltaTime;
             transform.position = Vector3.Lerp(transform.position, goalPosition, 5f * Time.deltaTime);
             transform.rotation = Quaternion.Slerp(transform.rotation, goalRotation, 5f * Time.deltaTime);
         }
         else
         {
-           // lerpTimer = 0;
             transform.position = Vector3.MoveTowards(transform.position, originalPosition, 60f * Time.deltaTime);
         }
     }
@@ -65,9 +59,7 @@ public class NameLock : MonoBehaviour
     {
         FirstPersonController.Instance.DisableInput();
         FirstPersonController.Instance.EnableCursor();
-        //StartCoroutine(LerpToPlayer());
-        goalPosition = FirstPersonController.Instance.faceTransform.TransformPoint(0,0,0);
-        //goalRotation = Quaternion.FromToRotation(transform.forward, -FirstPersonController.Instance.GetCameraForward());
+        goalPosition = FirstPersonController.Instance.faceTransform.TransformPoint(0,0.5f,0);
         goalRotation = Quaternion.LookRotation(FirstPersonController.Instance.GetCameraForward(), FirstPersonController.Instance.GetCameraUp());
         isPickedUp = true;
         AssociatedUI.SetActive(true);
@@ -76,7 +68,6 @@ public class NameLock : MonoBehaviour
     {
         FirstPersonController.Instance.EnableInput();
         FirstPersonController.Instance.DisableCursor();
-        //StartCoroutine(LerpFromPlayer());
         goalPosition = originalPosition;
         goalRotation = originalRotation;
         AssociatedUI.SetActive(false);
@@ -87,7 +78,6 @@ public class NameLock : MonoBehaviour
         clickTimer = 0f;
 
         numbers[number] = (numbers[number] + 1) % 9;
-        //Debug.Log("Numbers are: " + numbers[0] + numbers[1] + numbers[2] + numbers[3] + numbers[4] + numbers[5]); 
         StartCoroutine(LerpWheelUp(Wheels[number]));
     }
     public void DecreaseNumber(int number)
@@ -96,17 +86,13 @@ public class NameLock : MonoBehaviour
         clickTimer = 0f;
 
         numbers[number] = (numbers[number] - 1 + 9) % 9;
-        //Debug.Log("Numbers are: " + numbers[0] + numbers[1] + numbers[2] + numbers[3] + numbers[4] + numbers[5]); 
         StartCoroutine(LerpWheelDown(Wheels[number]));
     }
     public void CheckIfCorrect()
     {
-        if (numbers[0] != 2) { audioSource.PlayOneShot(lockFailSFX); return; }
+        if (numbers[0] != 4) { audioSource.PlayOneShot(lockFailSFX); return; }
         if (numbers[1] != 4) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[2] != 1) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[3] != 8) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[4] != 2) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[5] != 0) { audioSource.PlayOneShot(lockFailSFX); return; }
+        if (numbers[2] != 3) { audioSource.PlayOneShot(lockFailSFX); return; }
 
         audioSource.PlayOneShot(lockSucceedSFX);
         OnUnlocked?.Invoke();
@@ -114,37 +100,6 @@ public class NameLock : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    // coroutines
-    /*
-    public IEnumerator LerpToPlayer()
-    {
-        float elapsedTime = 0f;
-        Vector3 goalPosition = FirstPersonController.Instance.handTransform.position;
-        goalPosition += (Quaternion.Euler(FirstPersonController.Instance.GetCameraPitch(), 0, 0) * FirstPersonController.Instance.transform.forward) * inFrontOfPlayer;
-        while (elapsedTime < timeToLerp)
-        {
-            transform.position = Vector3.Lerp(originalTransform.position, 
-                                                goalPosition,
-                                                Mathf.Min(1.0f, elapsedTime / timeToLerp));
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        yield return null;
-    }
-    public IEnumerator LerpFromPlayer()
-    {
-        float elapsedTime = 0f;
-        while (elapsedTime < timeToLerp)
-        {
-            transform.position = Vector3.Lerp(FirstPersonController.Instance.transform.position + FirstPersonController.Instance.transform.forward * inFrontOfPlayer + offsetFromPlayer,
-                                                originalTransform.position, 
-                                                Mathf.Min(1.0f, elapsedTime / timeToLerp));
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        yield return null;
-    }
-    */
     public IEnumerator LerpWheelUp(GameObject wheel)
     {
         float elapsedTime = 0f;
@@ -157,7 +112,7 @@ public class NameLock : MonoBehaviour
         }
         yield return null;
     }
-        public IEnumerator LerpWheelDown(GameObject wheel)
+    public IEnumerator LerpWheelDown(GameObject wheel)
     {
         float elapsedTime = 0f;
         while (elapsedTime < twistTime)
@@ -169,5 +124,4 @@ public class NameLock : MonoBehaviour
         }
         yield return null;
     }
-
 }

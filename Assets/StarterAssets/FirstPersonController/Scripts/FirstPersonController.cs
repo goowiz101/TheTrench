@@ -88,6 +88,9 @@ namespace StarterAssets
 		public Transform faceTransform;
 		public Transform headTransform;
 
+		// Jeff grenade
+		private bool hasGrenade = false;
+
 		// Jeff ladder variables
 		private float timeToLerp;
 		private float timeToLerpLadder = 0.2f;
@@ -339,6 +342,14 @@ namespace StarterAssets
 		public Vector3 GetCameraUp()
 		{
 			return CinemachineCameraTarget.transform.up;
+		}
+		public void GiveGrenade()
+		{
+			hasGrenade = true;
+		}
+		public void RemoveGrenade()
+		{
+			hasGrenade = false;
 		}
 
 		// Jeff ladder functions
