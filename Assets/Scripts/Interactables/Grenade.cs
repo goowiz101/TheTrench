@@ -12,6 +12,13 @@ public class Grenade : MonoBehaviour
 
     [SerializeField] private GameObject grenadeLive;
 
+    public static List<Interaction> allGrenades = new List<Interaction>();
+
+    void Start()
+    {
+        allGrenades.Add(GetComponent<Interaction>());
+    }
+
     private void Update()
     {
         if (isPickedUp)
@@ -19,6 +26,7 @@ public class Grenade : MonoBehaviour
             // TODO: timer, not hardcoded time duh
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, goalPosition, 60f * Time.deltaTime);
             transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(0f,0f,0f), 20f * Time.deltaTime);
+            transform.localScale = Vector3.MoveTowards(transform.localScale, new Vector3(2, 2, 2), 180f * Time.deltaTime);
 
             // DEBUG
             if (Input.GetMouseButtonDown(0))
@@ -45,6 +53,11 @@ public class Grenade : MonoBehaviour
 
     public void PickUpGrenade()
     {
+        foreach (Interaction nade in allGrenades)
+        {
+            nade.isInteractable = false;
+        }
+
         goalPosition = new Vector3(0, 0, 0.2f);
         transform.SetParent(FirstPersonController.Instance.handTransform);
         FirstPersonController.Instance.GiveGrenade(this);

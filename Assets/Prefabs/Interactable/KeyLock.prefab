@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2882308279469667884
+--- !u!1 &1635335432714299868
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3172181314999794531}
-  - component: {fileID: 8302751856051978511}
-  - component: {fileID: 4388284782368952222}
-  - component: {fileID: 1020185282284911881}
-  - component: {fileID: 2259906172233526659}
-  - component: {fileID: 6970672390618521776}
+  - component: {fileID: 7333881358254978740}
+  - component: {fileID: 471377134891382597}
+  - component: {fileID: 7249476745629878913}
+  - component: {fileID: 412116698636940569}
+  - component: {fileID: 748228593772106622}
+  - component: {fileID: 5971957660389042849}
   m_Layer: 9
-  m_Name: FlareGun
+  m_Name: KeyLock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3172181314999794531
+--- !u!4 &7333881358254978740
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2882308279469667884}
+  m_GameObject: {fileID: 1635335432714299868}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -6.123234e-17, y: 1, z: 6.123234e-17, w: -3.7493994e-33}
+  m_LocalPosition: {x: 213.13716, y: 27.94, z: 519.7994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8302751856051978511
+--- !u!33 &471377134891382597
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2882308279469667884}
-  m_Mesh: {fileID: -3675937974569378396, guid: cf425dcccee27b44e967e2d90a603f0b, type: 3}
---- !u!23 &4388284782368952222
+  m_GameObject: {fileID: 1635335432714299868}
+  m_Mesh: {fileID: -50590266365301390, guid: bf56dc9cc26a91f4cb18b2dca6d8fe6a, type: 3}
+--- !u!23 &7249476745629878913
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2882308279469667884}
+  m_GameObject: {fileID: 1635335432714299868}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 803bf051f51225d498b38d5cc599234c, type: 2}
+  - {fileID: 2100000, guid: 4890c5ad545a41d4bbce35c40eeee356, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,13 +86,70 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1020185282284911881
+--- !u!114 &412116698636940569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635335432714299868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a840851dc6d54eb4d899b8b51d7ef3ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AssociatedUI: {fileID: 0}
+  OnUnlocked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Fence, Assembly-CSharp
+        m_MethodName: OpenFence
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &748228593772106622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635335432714299868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ed44dfe7f3abb4d8a2e13917a57794, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 412116698636940569}
+        m_TargetAssemblyTypeName: KeyLock, Assembly-CSharp
+        m_MethodName: ActivateLock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  verb: inspect
+  isInteractable: 1
+--- !u!65 &5971957660389042849
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2882308279469667884}
+  m_GameObject: {fileID: 1635335432714299868}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -105,48 +162,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8734323, y: 0.32256502, z: 1.5673316}
-  m_Center: {x: -0.27543366, y: 0, z: -0.25393304}
---- !u!114 &2259906172233526659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2882308279469667884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79ed44dfe7f3abb4d8a2e13917a57794, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnInteract:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6970672390618521776}
-        m_TargetAssemblyTypeName: FlareGun, Assembly-CSharp
-        m_MethodName: PickUpGun
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  verb: 
-  isInteractable: 1
---- !u!114 &6970672390618521776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2882308279469667884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a61499f44280a2c4a9b61a4defc94e62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flarePrefab: {fileID: 1621571392600341779, guid: 45a832d2496a00446b04cc64e7d9903f,
-    type: 3}
+  m_Size: {x: 0.14700805, y: 0.25917754, z: 0.07691554}
+  m_Center: {x: 0, y: 0.0474709, z: 0}

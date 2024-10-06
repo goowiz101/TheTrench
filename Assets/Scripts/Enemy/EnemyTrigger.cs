@@ -11,10 +11,12 @@ public class EnemyTrigger : MonoBehaviour
     {
         if (spawnOrDespawn)
         {
+            Debug.Log("spawn");
             EnemyController.Instance.SpawnAt(spawnPoint);
         }
         else
         {
+            Debug.Log("despawn");
             EnemyController.Instance.Despawn();
         }
     }

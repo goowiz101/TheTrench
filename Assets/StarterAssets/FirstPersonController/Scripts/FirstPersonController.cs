@@ -93,6 +93,8 @@ namespace StarterAssets
 		private bool hasGrenade = false;
 		private Key key;
 		private bool hasKey = false;
+		private bool hasFlare = false;
+		private FlareGun flareGun;
 
 		// Jeff ladder variables
 		private float timeToLerp;
@@ -376,6 +378,16 @@ namespace StarterAssets
 			hasKey = false;
 		}
 		public bool HasKey() { return hasKey; }
+		public void GiveFlareGun(FlareGun flareGun)
+		{
+			this.flareGun = flareGun;
+			hasFlare = true;
+		}
+		public bool HasFlare() { return hasFlare; }
+		public void EnableFlareGun()
+		{
+			this.flareGun.canFire = true;
+		}
 
 		// Jeff ladder functions
 		public void StartClimbLabber(Transform startPoint)
