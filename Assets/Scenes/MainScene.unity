@@ -1733,7 +1733,8 @@ PrefabInstance:
       value: RatsTrench
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3758992829586025390, guid: 925b81c35edc5d7499cfceeae4685418, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 925b81c35edc5d7499cfceeae4685418, type: 3}
@@ -9682,17 +9683,17 @@ PrefabInstance:
     - target: {fileID: 5652998823150890091, guid: 3f544ef89db8d024b937a9e6e0091520,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 39.835503
+      value: 24.695225
       objectReference: {fileID: 0}
     - target: {fileID: 5652998823150890091, guid: 3f544ef89db8d024b937a9e6e0091520,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 39.835503
+      value: 24.695225
       objectReference: {fileID: 0}
     - target: {fileID: 5652998823150890091, guid: 3f544ef89db8d024b937a9e6e0091520,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 39.835503
+      value: 24.695225
       objectReference: {fileID: 0}
     - target: {fileID: 5652998823150890091, guid: 3f544ef89db8d024b937a9e6e0091520,
         type: 3}
