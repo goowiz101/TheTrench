@@ -150,6 +150,16 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+
+			// hardcoded
+			if (Input.GetKeyDown(KeyCode.P))
+			{
+				EnableCursor();
+			}
+			if (Input.GetKeyDown(KeyCode.L))
+			{
+				DisableCursor();
+			}
 		}
 
 		private void LateUpdate()
