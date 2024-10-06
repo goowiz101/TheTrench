@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-
-
     private Transform originalTransform;
     private bool isPickedUp = false;
 
@@ -29,5 +27,4 @@ public class Key : MonoBehaviour
         transform.SetParent(FirstPersonController.Instance.handTransform);
         isPickedUp = true;
     }
-
 }
