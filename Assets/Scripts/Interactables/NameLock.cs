@@ -7,9 +7,9 @@ using UnityEngine.Events;
 
 public class NameLock : MonoBehaviour
 {
-    private float timeToLerp = 0.25f;
-    private Vector3 offsetFromPlayer = new Vector3(0f, 1.5f, 0f);
-    private float inFrontOfPlayer = 1f;
+    //private float timeToLerp = 0.25f;
+    //private Vector3 offsetFromPlayer = new Vector3(0f, 1.5f, 0f);
+    //private float inFrontOfPlayer = 1f;
 
     private Transform originalTransform;
 

@@ -86,12 +86,13 @@ namespace StarterAssets
 		// Jeff pickup
 		public Transform handTransform;
 		public Transform faceTransform;
+		public Transform headTransform;
 
 		// Jeff ladder variables
 		private float timeToLerp;
 		private float timeToLerpLadder = 0.2f;
 		private float timeBetweenGrab = 0.5f;
-		private float distancePerRung = 1f;
+		private float distancePerRung = 3f;
 		private int numberOfRungs = 3;
 		private float timeToLerpRung = 0.5f;
 		private float timeToLerpBullet = 0.2f;
@@ -378,7 +379,7 @@ namespace StarterAssets
 			while (elapsedTime < timeToLerp)
 			{
 				transform.position = Vector3.Lerp(startPos, new Vector3(toPoint.position.x, startPos.y, toPoint.position.z), Mathf.Min(1.0f, elapsedTime / timeToLerp));
-				transform.rotation = Quaternion.Slerp(startRot, Quaternion.Euler(startRot.x, toPoint.rotation.y, startRot.z), Mathf.Min(1.0f, elapsedTime / timeToLerp));
+				transform.rotation = Quaternion.Slerp(startRot, toPoint.rotation, Mathf.Min(1.0f, elapsedTime / timeToLerp));
 				elapsedTime += Time.deltaTime;
 
 				yield return null;
