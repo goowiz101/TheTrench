@@ -13,7 +13,8 @@ public enum SoundType
     METAL,
     RADIO,
     UNLOCK,
-    WAR
+    WAR,
+    LOCK
 
 }
 [RequireComponent(typeof(AudioSource))]

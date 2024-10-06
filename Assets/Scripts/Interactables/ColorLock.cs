@@ -9,7 +9,7 @@ public class ColorLock : MonoBehaviour
 
     private Transform originalTransform;
 
-    [SerializeField] private AudioSource audioSource;
+    //[SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip lockFailSFX;
     [SerializeField] private AudioClip lockSucceedSFX;
 
@@ -51,7 +51,8 @@ public class ColorLock : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, originalPosition, 60f * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, originalPosition, 5f * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, originalRotation, 5f * Time.deltaTime);
         }
     }
 
@@ -68,8 +69,10 @@ public class ColorLock : MonoBehaviour
     {
         FirstPersonController.Instance.EnableInput();
         FirstPersonController.Instance.DisableCursor();
-        goalPosition = originalPosition;
-        goalRotation = originalRotation;
+        //StartCoroutine(LerpFromPlayer());
+        //goalPosition = originalPosition;
+        //goalRotation = originalRotation;
+        isPickedUp = false;
         AssociatedUI.SetActive(false);
     }
     public void IncreaseNumber(int number)
@@ -90,11 +93,11 @@ public class ColorLock : MonoBehaviour
     }
     public void CheckIfCorrect()
     {
-        if (numbers[0] != 4) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[1] != 4) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[2] != 3) { audioSource.PlayOneShot(lockFailSFX); return; }
+        if (numbers[0] != 4) { SoundManager.PlaySound(SoundType.LOCK); return; }
+        if (numbers[1] != 4) { SoundManager.PlaySound(SoundType.LOCK); return; }
+        if (numbers[2] != 3) { SoundManager.PlaySound(SoundType.LOCK); return; }
 
-        audioSource.PlayOneShot(lockSucceedSFX);
+        SoundManager.PlaySound(SoundType.UNLOCK);
         OnUnlocked?.Invoke();
         DeactivateLock();
         this.gameObject.SetActive(false);

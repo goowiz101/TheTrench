@@ -353,9 +353,10 @@ namespace StarterAssets
 		}
 		public void RemoveGrenade()
 		{
-			Destroy(grenade);
+			Destroy(grenade.gameObject);
 			hasGrenade = false;
 		}
+		public bool HasGrenade() { return hasGrenade; }
 		public void GiveKey(Key key)
 		{
 			this.key = key;
@@ -363,9 +364,10 @@ namespace StarterAssets
 		}
 		public void RemoveKey()
 		{
-			Destroy(key);
+			Destroy(key.gameObject);
 			hasKey = false;
 		}
+		public bool HasKey() { return hasKey; }
 
 		// Jeff ladder functions
 		public void StartClimbLabber(Transform startPoint)

@@ -13,7 +13,6 @@ public class NameLock : MonoBehaviour
 
     private Transform originalTransform;
 
-    [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip lockFailSFX;
     [SerializeField] private AudioClip lockSucceedSFX;
 
@@ -56,8 +55,8 @@ public class NameLock : MonoBehaviour
         }
         else
         {
-           // lerpTimer = 0;
             transform.position = Vector3.MoveTowards(transform.position, originalPosition, 60f * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, originalRotation, 5f * Time.deltaTime);
         }
     }
 
@@ -77,8 +76,9 @@ public class NameLock : MonoBehaviour
         FirstPersonController.Instance.EnableInput();
         FirstPersonController.Instance.DisableCursor();
         //StartCoroutine(LerpFromPlayer());
-        goalPosition = originalPosition;
-        goalRotation = originalRotation;
+        //goalPosition = originalPosition;
+        //goalRotation = originalRotation;
+        isPickedUp = false;
         AssociatedUI.SetActive(false);
     }
     public void IncreaseNumber(int number)
@@ -101,14 +101,14 @@ public class NameLock : MonoBehaviour
     }
     public void CheckIfCorrect()
     {
-        if (numbers[0] != 2) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[1] != 4) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[2] != 1) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[3] != 8) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[4] != 2) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[5] != 0) { audioSource.PlayOneShot(lockFailSFX); return; }
+        if (numbers[0] != 2) { SoundManager.PlaySound(SoundType.LOCK); return; }
+        if (numbers[1] != 4) { SoundManager.PlaySound(SoundType.LOCK); return; }
+        if (numbers[2] != 1) { SoundManager.PlaySound(SoundType.LOCK); return; }
+        if (numbers[3] != 8) { SoundManager.PlaySound(SoundType.LOCK); return; }
+        if (numbers[4] != 2) { SoundManager.PlaySound(SoundType.LOCK); return; }
+        if (numbers[5] != 0) { SoundManager.PlaySound(SoundType.LOCK); return; }
 
-        audioSource.PlayOneShot(lockSucceedSFX);
+        SoundManager.PlaySound(SoundType.UNLOCK);
         OnUnlocked?.Invoke();
         DeactivateLock();
         this.gameObject.SetActive(false);
