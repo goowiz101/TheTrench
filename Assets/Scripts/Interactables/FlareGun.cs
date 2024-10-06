@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class FlareGun : MonoBehaviour
 {
     private Transform originalTransform;
     private bool isPickedUp = false;
-    private bool canFire = true;
+    public bool canFire = false;
 
     private float timeToLookAtSky = 0.25f;
 
     public GameObject flarePrefab;
+
+    public UnityEvent OnFlarePickup;
+    public UnityEvent OnFlareFire;
 
     private void Start()
     {
@@ -37,8 +41,11 @@ public class FlareGun : MonoBehaviour
     public void PickUpGun()
     {
         // TODO: attach to bone of hand?
+        transform.localScale = new Vector3(1f,1f,1f);
+        FirstPersonController.Instance.GiveFlareGun(this);
         transform.SetParent(FirstPersonController.Instance.handTransform);
         isPickedUp = true;
+        OnFlarePickup?.Invoke();
     }
 
     public void Fire()
@@ -64,6 +71,7 @@ public class FlareGun : MonoBehaviour
         }
         yield return new WaitForSeconds(0.25f);
         GameObject flare = Instantiate(flarePrefab, this.transform.position, Quaternion.identity);
+        OnFlareFire?.Invoke();
         //Vector3 direction = Quaternion.Euler(FirstPersonController.Instance.GetCameraPitch(), 0, 0) * FirstPersonController.Instance.transform.up;
         Vector3 direction = transform.forward;
         flare.GetComponent<Rigidbody>().velocity = direction * 50f;

@@ -8,7 +8,6 @@ public class EnemyController : MonoBehaviour
 {
     public static EnemyController Instance;
 
-    [SerializeField] private Volume basePPVol;
     [SerializeField] private Volume monsterPPVol;
 
     private bool isActive;

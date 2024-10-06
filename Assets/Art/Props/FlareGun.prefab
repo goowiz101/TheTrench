@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 3172181314999794531}
   - component: {fileID: 8302751856051978511}
   - component: {fileID: 4388284782368952222}
-  m_Layer: 0
+  - component: {fileID: 1020185282284911881}
+  - component: {fileID: 2259906172233526659}
+  - component: {fileID: 6970672390618521776}
+  m_Layer: 9
   m_Name: FlareGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,3 +86,67 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1020185282284911881
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882308279469667884}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8734323, y: 0.32256502, z: 1.5673316}
+  m_Center: {x: -0.27543366, y: 0, z: -0.25393304}
+--- !u!114 &2259906172233526659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882308279469667884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ed44dfe7f3abb4d8a2e13917a57794, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6970672390618521776}
+        m_TargetAssemblyTypeName: FlareGun, Assembly-CSharp
+        m_MethodName: PickUpGun
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  verb: 
+  isInteractable: 1
+--- !u!114 &6970672390618521776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2882308279469667884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a61499f44280a2c4a9b61a4defc94e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flarePrefab: {fileID: 1621571392600341779, guid: 45a832d2496a00446b04cc64e7d9903f,
+    type: 3}
