@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 
 public class Fence : MonoBehaviour
@@ -13,6 +14,7 @@ public class Fence : MonoBehaviour
     private float timeToRotate = 0.75f;
 
     private bool exploded = false;
+    [SerializeField] private bool removeGrenadeAfter = false;
 
     public void OpenFence()
     {
@@ -32,6 +34,10 @@ public class Fence : MonoBehaviour
             plank.GetComponent<BoxCollider>().enabled = true;
             plank.GetComponent<Rigidbody>().useGravity = true;
             plank.GetComponent<Rigidbody>().AddExplosionForce(20f, explosionPos, 10f, 3f, ForceMode.VelocityChange);
+        }
+        if (removeGrenadeAfter)
+        {
+            FirstPersonController.Instance.RemoveGrenade();
         }
     }
 

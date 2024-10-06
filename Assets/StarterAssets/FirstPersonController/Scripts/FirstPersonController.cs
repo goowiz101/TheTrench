@@ -357,6 +357,14 @@ namespace StarterAssets
 			hasGrenade = false;
 		}
 		public bool HasGrenade() { return hasGrenade; }
+		public void DisableGrenade()
+		{
+			grenade.gameObject.SetActive(false);
+		}
+		public void EnableGrenade()
+		{
+			grenade.gameObject.SetActive(true);
+		}
 		public void GiveKey(Key key)
 		{
 			this.key = key;

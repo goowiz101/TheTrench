@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 
 public class GrenadeLive : MonoBehaviour
@@ -29,6 +30,7 @@ public class GrenadeLive : MonoBehaviour
     {
         Instantiate(explosionFX, this.transform.position, Quaternion.identity);
         SoundManager.PlaySound(SoundType.EXPLOSION);
+        FirstPersonController.Instance.EnableGrenade();
         Destroy(this.gameObject);
     }
 }

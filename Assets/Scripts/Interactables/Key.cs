@@ -20,13 +20,13 @@ public class Key : MonoBehaviour
         if (isPickedUp)
         {
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, goalPosition, 60f * Time.deltaTime);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(0f,0f,0f), 20f * Time.deltaTime);
+            transform.localRotation = Quaternion.Slerp(transform.localRotation, Quaternion.Euler(180f,0f,0f), 20f * Time.deltaTime);
         }
     }
 
     public void PickUpKey()
     {
-        goalPosition = new Vector3(0, 0, 3f);
+        goalPosition = new Vector3(2f, -0.1f, 3f);
         FirstPersonController.Instance.GiveKey(this);
         transform.SetParent(FirstPersonController.Instance.handTransform);
         isPickedUp = true;

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Grenade : MonoBehaviour
 {
     private bool isPickedUp = false;
-    private bool canFire = false;
+    public bool canFire = false;
 
     private Vector3 goalPosition;
 
@@ -38,6 +38,8 @@ public class Grenade : MonoBehaviour
         nade.GetComponent<Rigidbody>().velocity = direction * 25f;
         Vector3 torque = new Vector3(Random.Range(-2f, 2f), 0, Random.Range(-3f, -1f));
         nade.GetComponent<Rigidbody>().AddTorque(torque, ForceMode.VelocityChange);
+
+        FirstPersonController.Instance.DisableGrenade();
         // canFire = false;
     }
 
