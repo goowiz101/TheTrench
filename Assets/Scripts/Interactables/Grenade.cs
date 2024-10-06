@@ -6,8 +6,11 @@ using UnityEngine;
 public class Grenade : MonoBehaviour
 {
     private bool isPickedUp = false;
+    private bool canFire = false;
 
     private Vector3 goalPosition;
+
+    [SerializeField] private GameObject grenadeLive;
 
     private void Update()
     {
@@ -20,9 +23,22 @@ public class Grenade : MonoBehaviour
             // DEBUG
             if (Input.GetMouseButtonDown(0))
             {
-                // Fire();
+                Fire();
             }
         }
+    }
+
+    public void Fire()
+    {
+        if(!canFire) { return; }
+
+        GameObject nade = Instantiate(grenadeLive, this.transform.position, Quaternion.identity);
+        //Vector3 direction = Quaternion.Euler(FirstPersonController.Instance.GetCameraPitch(), 0, 0) * FirstPersonController.Instance.transform.up;
+        Vector3 direction = FirstPersonController.Instance.GetCameraForward();
+        nade.GetComponent<Rigidbody>().velocity = direction * 25f;
+        Vector3 torque = new Vector3(Random.Range(-2f, 2f), 0, Random.Range(-3f, -1f));
+        nade.GetComponent<Rigidbody>().AddTorque(torque, ForceMode.VelocityChange);
+        // canFire = false;
     }
 
     public void PickUpGrenade()
@@ -31,6 +47,7 @@ public class Grenade : MonoBehaviour
         transform.SetParent(FirstPersonController.Instance.handTransform);
         FirstPersonController.Instance.GiveGrenade();
         isPickedUp = true;
+        canFire = true;
         GetComponent<Interaction>().isInteractable = false;
     }
 }

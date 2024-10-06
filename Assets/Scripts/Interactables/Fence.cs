@@ -6,13 +6,33 @@ public class Fence : MonoBehaviour
 {
     [SerializeField] private Transform leftFence;
     [SerializeField] private Transform rightFence;
+    [SerializeField] private List<GameObject> planks;
+    [SerializeField] private List<BoxCollider> groundColliders;
 
     private float maxRotation = 100f;
     private float timeToRotate = 0.75f;
 
+    private bool exploded = false;
+
     public void OpenFence()
     {
         StartCoroutine(SwingOpen());
+    }
+
+    public void ExplodeFence(Vector3 explosionPos)
+    {
+        if (exploded) { return; }
+        exploded = true;
+        foreach(BoxCollider col in groundColliders)
+        {
+            col.enabled = false;
+        }
+        foreach(GameObject plank in planks)
+        {
+            plank.GetComponent<BoxCollider>().enabled = true;
+            plank.GetComponent<Rigidbody>().useGravity = true;
+            plank.GetComponent<Rigidbody>().AddExplosionForce(20f, explosionPos, 10f, 3f, ForceMode.VelocityChange);
+        }
     }
 
     IEnumerator SwingOpen()
