@@ -9,7 +9,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Post Process
@@ -17,7 +17,7 @@ TagManager:
   - Trigger
   - Interactable
   - InteractorRaycast
-  - 
+  - NoCollision
   - 
   - 
   - 

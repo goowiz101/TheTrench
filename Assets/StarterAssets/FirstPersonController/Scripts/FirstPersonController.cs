@@ -318,6 +318,18 @@ namespace StarterAssets
 			Gravity = cachedGravity;
 			_verticalVelocity = -2f;
 		}
+		public void SetCameraPitch(float angle)
+		{
+			// clamp our pitch rotation
+			angle = ClampAngle(angle, BottomClamp, TopClamp);
+
+			// Update Cinemachine camera target pitch
+			CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(angle, 0.0f, 0.0f);
+		}
+		public float GetCameraPitch()
+		{
+			return _cinemachineTargetPitch;
+		}
 
 		// Jeff ladder functions
 		public void StartClimbLabber(Transform startPoint)
