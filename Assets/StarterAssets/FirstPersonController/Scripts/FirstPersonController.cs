@@ -288,13 +288,21 @@ namespace StarterAssets
 		}
 
 		// Helper functions
-		private void DisableInput()
+		public void DisableInput()
 		{
 			GetComponent<PlayerInput>().DeactivateInput();
 		}
-		private void EnableInput()
+		public void EnableInput()
 		{
 			GetComponent<PlayerInput>().ActivateInput();
+		}
+		public void EnableCursor()
+		{
+			_input.SetCursorState(false);
+		}
+		public void DisableCursor()
+		{
+			_input.SetCursorState(true);
 		}
 		private void DisableGravity()
 		{
@@ -345,8 +353,8 @@ namespace StarterAssets
 			Quaternion startRot = transform.rotation;
 			while (elapsedTime < timeToLerp)
 			{
-				transform.position = Vector3.Lerp(startPos, new Vector3(toPoint.position.x, startPos.y, toPoint.position.z), elapsedTime / timeToLerp);
-				transform.rotation = Quaternion.Slerp(startRot, Quaternion.Euler(startRot.x, toPoint.rotation.y, startRot.z), elapsedTime / timeToLerp);
+				transform.position = Vector3.Lerp(startPos, new Vector3(toPoint.position.x, startPos.y, toPoint.position.z), Mathf.Min(1.0f, elapsedTime / timeToLerp));
+				transform.rotation = Quaternion.Slerp(startRot, Quaternion.Euler(startRot.x, toPoint.rotation.y, startRot.z), Mathf.Min(1.0f, elapsedTime / timeToLerp));
 				elapsedTime += Time.deltaTime;
 
 				yield return null;
@@ -361,8 +369,8 @@ namespace StarterAssets
 			Quaternion startRot = transform.rotation;
 			while (elapsedTime < timeToLerp)
 			{
-				transform.position = Vector3.Lerp(startPos, toPoint.position, elapsedTime / timeToLerp);
-				transform.rotation = Quaternion.Slerp(startRot, Quaternion.Euler(startRot.x, toPoint.rotation.y, startRot.z), elapsedTime / timeToLerp);
+				transform.position = Vector3.Lerp(startPos, toPoint.position, Mathf.Min(1.0f, elapsedTime / timeToLerp));
+				transform.rotation = Quaternion.Slerp(startRot, Quaternion.Euler(startRot.x, toPoint.rotation.y, startRot.z), Mathf.Min(1.0f, elapsedTime / timeToLerp));
 				elapsedTime += Time.deltaTime;
 
 				yield return null;
