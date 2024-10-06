@@ -13,10 +13,6 @@ public class NameLock : MonoBehaviour
 
     private Transform originalTransform;
 
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip lockFailSFX;
-    [SerializeField] private AudioClip lockSucceedSFX;
-
     [SerializeField] private GameObject AssociatedUI;
     [SerializeField] private List<GameObject> Wheels;
     private List<int> numbers;
@@ -68,7 +64,7 @@ public class NameLock : MonoBehaviour
         //StartCoroutine(LerpToPlayer());
         goalPosition = FirstPersonController.Instance.faceTransform.TransformPoint(0,0,0);
         //goalRotation = Quaternion.FromToRotation(transform.forward, -FirstPersonController.Instance.GetCameraForward());
-        goalRotation = Quaternion.LookRotation(FirstPersonController.Instance.GetCameraForward(), FirstPersonController.Instance.GetCameraUp());
+        goalRotation = Quaternion.LookRotation(-FirstPersonController.Instance.GetCameraForward(), FirstPersonController.Instance.GetCameraUp()) * transform.rotation;
         isPickedUp = true;
         AssociatedUI.SetActive(true);
     }
@@ -101,14 +97,13 @@ public class NameLock : MonoBehaviour
     }
     public void CheckIfCorrect()
     {
-        if (numbers[0] != 2) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[1] != 4) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[2] != 1) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[3] != 8) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[4] != 2) { audioSource.PlayOneShot(lockFailSFX); return; }
-        if (numbers[5] != 0) { audioSource.PlayOneShot(lockFailSFX); return; }
+        if (numbers[0] != 2) { return; }
+        if (numbers[1] != 4) { return; }
+        if (numbers[2] != 1) { return; }
+        if (numbers[3] != 8) { return; }
+        if (numbers[4] != 2) { return; }
+        if (numbers[5] != 0) { return; }
 
-        audioSource.PlayOneShot(lockSucceedSFX);
         OnUnlocked?.Invoke();
         DeactivateLock();
         this.gameObject.SetActive(false);
