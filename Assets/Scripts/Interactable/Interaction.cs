@@ -7,7 +7,7 @@ public class Interaction : MonoBehaviour
 {
     public UnityEvent OnInteract;
     public string verb;
-    private bool isInteractable = true;
+    public bool isInteractable = true;
     public void Interact()
     {
         if (isInteractable)

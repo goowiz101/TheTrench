@@ -46,19 +46,17 @@ public class Interactor : MonoBehaviour
         // each frame, fire a raycast
         Ray r = new Ray(InteractorSource.position, InteractorSource.forward);
         int layerMask = 1 << 9;
+        promptText.text = "";
         if (Physics.Raycast(r, out RaycastHit hitInfo, InteractRange, layerMask))
         {
             if (hitInfo.transform == null) { return; }
             if (!hitInfo.transform.TryGetComponent<Interaction>(out Interaction interactObj)) { return; }
+            if (!interactObj.isInteractable) { return; }
             DetectHit(interactObj);
             if (_input.interact)
             {
                 interactObj.Interact();
             }
-        }
-        else
-        {
-            promptText.text = "";
         }
         _input.interact = false;
     }
