@@ -9,6 +9,8 @@ public class Interactor : MonoBehaviour
     [SerializeField] private Transform InteractorSource;
     [SerializeField] private float InteractRange;
 
+    [SerializeField] private TMP_Text promptText;
+
     private StarterAssetsInputs _input;
 
     void Start()
@@ -23,6 +25,7 @@ public class Interactor : MonoBehaviour
 
     private void HandleInteraction()
     {
+        /*
         // If press E, fire a raycast
         if (_input.interact) 
         {
@@ -38,7 +41,31 @@ public class Interactor : MonoBehaviour
             }
             _input.interact = false;
         }
+        */
+
+        // each frame, fire a raycast
+        Ray r = new Ray(InteractorSource.position, InteractorSource.forward);
+        int layerMask = 1 << 9;
+        if (Physics.Raycast(r, out RaycastHit hitInfo, InteractRange, layerMask))
+        {
+            if (hitInfo.transform == null) { return; }
+            if (!hitInfo.transform.TryGetComponent<Interaction>(out Interaction interactObj)) { return; }
+            DetectHit(interactObj);
+            if (_input.interact)
+            {
+                interactObj.Interact();
+            }
+        }
+        else
+        {
+            promptText.text = "";
+        }
+        _input.interact = false;
     }
 
+    private void DetectHit(Interaction interactObj)
+    {
+        promptText.text = "Press E to " + interactObj.verb;
+    }
 
 }
