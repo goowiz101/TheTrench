@@ -83,6 +83,9 @@ namespace StarterAssets
 
 		private const float _threshold = 0.01f;
 
+		// Jeff pickup
+		public Transform handTransform;
+
 		// Jeff ladder variables
 		private float timeToLerp;
 		private float timeToLerpLadder = 0.2f;

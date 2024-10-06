@@ -11,7 +11,7 @@ public class Lock : MonoBehaviour
 
     private Transform originalTransform;
 
-    public void Start()
+    private void Start()
     {
         originalTransform = transform;
     }
