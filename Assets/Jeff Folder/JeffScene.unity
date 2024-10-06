@@ -795,8 +795,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1379457667}
-        m_TargetAssemblyTypeName: Lock, Assembly-CSharp
-        m_MethodName: ActivateLock
+        m_TargetAssemblyTypeName: Key, Assembly-CSharp
+        m_MethodName: PickUpKey
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -901,7 +901,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1379457661}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02dc16a0fddc82543b464922bc2bdb93, type: 3}
+  m_Script: {fileID: 11500000, guid: 99ede1bf71c2f1b41b3ae4a1158cddc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1410308905
