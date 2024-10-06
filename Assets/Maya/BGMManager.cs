@@ -9,6 +9,7 @@ public class BGMManager : MonoBehaviour
     private static BGMManager instance;
     [SerializeField] private AudioSource ambientSource;
     [SerializeField] private AudioSource monsterSource;
+    [SerializeField] private AudioSource warSource;
     private void Awake()
     {
         instance = this;
@@ -27,6 +28,7 @@ public class BGMManager : MonoBehaviour
     public void PlayBGM()
     {
         ambientSource.Play();
+        warSource.Play();
     }
     public void StopBGM()
     {
